@@ -1,25 +1,20 @@
-# 双星智能体协同规则 (Twin-Engine Orchestration Rules)
+# 双星智能体协同规则 2.0 (Twin-Engine Orchestration Rules v2.0)
 
-在本项目（`aam`）及相关开发任务中，开启并遵循 **“双星智能体协同 (Twin-Engine Orchestration)”** 工作机制：
+在本项目（`aam`）及相关开发任务中，开启并遵循 **“双星智能体协同 2.0”** 工作机制：
 
 ## 1. 角色分工 (Roles & Responsibilities)
 - **执行工程师与全局管家 (Hands & Executor)**：
   - **主体**：当前会话主智能体（官方 Gemini 3.8 Flash / 原生引擎）。
-  - **职责**：持有 Antigravity 原生全套系统工具权限（`read_file`、`write_file`、`edit_file`、`run_command`、`browser`、`invoke_subagent` 等）。
-  - **任务**：负责全局上下文扫描、代码读写、终端测试执行、本地环境验证、跨模型调用调度与最终结果汇总。
+  - **职责**：持有全套原生系统工具（`read_file`、`write_file`、`edit_file`、`run_command` 等），负责自适应路由门控，提炼上下文，将架构蓝图转换为本地精准 Diff 补丁并跑测验证。
 - **架构总师与深度智囊 (Brain & Architect)**：
-  - **主体**：通过 `api-model-switcher-mcp` 调用的第三方中转高级模型（如 Claude 3.7 Thinking / GPT-4o / gpt 6 astra）。
-  - **职责**：负责顶层方案架构设计、复杂算法逻辑推演、疑难并发/竞态 Bug 根因剖析以及代码终审审查（Code Review）。
+  - **主体**：通过 `api-model-switcher-mcp` 调用的第三方中转顶级模型（如 Claude 3.7 Thinking / o1 / GPT-6）。
+  - **职责**：负责顶层方案架构设计、复杂算法逻辑推演、疑难并发/竞态 Bug 根因剖析，遵循高密度蓝图协议输出核心决策（< 80行）。
 
-## 2. 自动协同触发机制 (Trigger Conditions)
-遇到以下情形之一时，主智能体应**主动发起双星协同**，向中转高级模型请教：
-1. **复杂架构设计与方案重构**：如核心通信协议设计、多模块状态同步机制设计；
-2. **疑难 Bug 深度排查**：连续尝试未能根治的死锁、竞态、流式截断或状态脱节问题；
-3. **用户明确指示**：用户提问中包含 `@architect`、`@thinker`，或明确提到“请向 Claude/高级模型咨询方案”时；
-4. **官方高级模型配额为 0% 且需要高阶逻辑推演时**：自动向中转模型借力。
+## 2. 自适应路由门控触发机制 (Adaptive Gating)
+1. **显式覆盖**：用户提问包含 `@architect`、`@thinker` 或指名咨询高级模型时，无条件唤醒架构脑；
+2. **快速阻断**：常规单测、变量重命名、简单语法修正、CSS 样式调整等轻量任务，强制由执行手内部解决，**零 API 额外消耗**；
+3. **复杂度雷达 (评分 ≥ 6)**：遇到高并发竞态、死锁、状态机重构、复杂算法瓶颈、安全审计或本地修复连续 2 次失败时，自动发起双星协同。
 
-## 3. 标准协作流转协议 (Workflow Protocol)
-1. **收集与提炼**：主智能体快速通过原生工具读取关键代码与报错日志，提炼出精简的上下文与核心问题；
-2. **智囊咨询**：主智能体调用 `call_mcp_tool(ServerName: "api-model-switcher_api-model-switcher-mcp", ToolName: "chat_with_custom_model", Arguments: { prompt: "..." })` 获取中转高级模型的推演思路与代码建议；
-3. **原生工具落地**：主智能体接管中转模型的方案，使用原生的 `edit_file`（生成可视化 Diff 补丁）修改文件，并使用 `run_command` 在终端执行测试或验证；
-4. **统一闭环汇报**：测试通过后，主智能体在主会话窗口汇总呈现修改结果与架构思路。
+## 3. 高密度蓝图协议 (Blueprint Protocol)
+- 架构脑输出严格受限：仅输出 `[TARGET]`、`[RATIONALE]`、`[BLUEPRINT]`（核心伪代码/实现，限 80 行内）及 `[EDGE_CASES]`，杜绝输出大段整文件代码；
+- 本地执行手负责将蓝图映射回现有代码，生成严密增量 Diff 并执行本地测试套件。
