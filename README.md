@@ -39,7 +39,7 @@ flowchart TD
     Gating -->|"高复杂度 (评分 ≥ 6) 或 @architect<br>并发死锁 / 架构重构 / 算法突破"| ExtractContext["提炼核心问题与最小复现点"]
     
     subgraph BlueprintWorkflow["Aider 风格高密度蓝图闭环"]
-        ExtractContext --> Brain["🧠 架构脑 (Claude 5.5 / GPT 6 Astra / R1)<br>输出高密度架构蓝图 (&lt; 80行)"]
+        ExtractContext --> Brain["🧠 架构脑 (Gemini 4 Argon / Claude 5.5 / GPT 6 Astra)<br>输出高密度架构蓝图 (&lt; 80行)"]
         Brain --> Blueprint["[TARGET] 变更函数<br>[RATIONALE] 防死锁/竞态原理<br>[BLUEPRINT] 核心实现契约<br>[EDGE_CASES] 边界防范清单"]
         Blueprint --> HandsApply["🛠️ 执行手 (原生智能体)<br>读取本地文件，展开为精准 Diff"]
     end
@@ -100,7 +100,7 @@ twin-engine-orchestration/
 
 ## 🧠 如何设置架构脑大模型 (Architect Brain Setup)
 
-“架构脑”是双星协同中的顶层思考中枢（推荐选用 **Claude 5.5 Sonnet/Opus**、**GPT 6 Astra** 或 **DeepSeek R1**）。框架支持以下配置方式：
+“架构脑”是双星协同中的顶层思考中枢（推荐选用 **Gemini 4 Argon**、**Claude 5.5 Sonnet/Opus**、**GPT 6 Astra** 或 **DeepSeek R1**）。框架支持以下配置方式：
 
 ### 1. 对话一句话极速配置（最推荐）
 直接在任意对话框中将中转站的 API 信息发送给智能体：
@@ -117,7 +117,7 @@ twin-engine-orchestration/
 
 ### 3. 日常调用与随时切换
 * **全局默认激活**：日常高复杂度任务会自动交由当前默认架构脑推演；
-* **单次动态指定**：无需改配置，在提问时带模型 ID 即可，如 `@architect [claude-sonnet-5-5] 请重构状态机` 或 `@architect [gpt-6-astra] 请优化图算法`。
+* **单次动态指定**：无需改配置，在提问时带模型 ID 即可，如 `@architect [gemini-4-argon] 请进行跨服务架构规划`、`@architect [claude-sonnet-5-5] 请重构状态机` 或 `@architect [gpt-6-astra] 请优化图算法`。
 
 📖 **详细参数定义与排错指南**：[docs/setup-architect-brain.md](docs/setup-architect-brain.md)
 

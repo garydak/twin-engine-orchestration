@@ -1,5 +1,15 @@
 [
   {
+    "id": "mdl_gemini_4_argon",
+    "name": "Gemini 4 Argon (Reasoning Pro)",
+    "modelId": "gemini-4-argon",
+    "baseUrl": "https://api.your-relay.com/v1",
+    "protocol": "openai",
+    "maxTokens": 32768,
+    "temperature": 0.7,
+    "reasoningEffort": "high"
+  },
+  {
     "id": "mdl_claude_55_sonnet",
     "name": "Claude 5.5 Sonnet (Thinking)",
     "modelId": "claude-sonnet-5-5",
