@@ -133,6 +133,17 @@ twin-engine-orchestration/
 
 ---
 
+## 💎 黄金搭档推荐 (Recommended Companion)
+
+> [!TIP]
+> **在 Google Antigravity 中搭配运行最佳体验**：  
+> 强烈推荐搭配配套生态项目 [**Antigravity API Manager**](https://github.com/garydak/antigravity-api-manager) 一同使用！  
+> 
+> * **无缝协同**：`antigravity-api-manager` 专为 Antigravity 设计，提供第三方 API / 中转站模型的高效调度、多账号热切换与原生侧边栏可视化面板；
+> * **即装即用**：安装后可直接在 Antigravity 界面内对“架构脑”模型（如 Claude 5.5 Sonnet、GPT 6 Astra）进行可视化测速、Token 额度监控与热切换，无需手动折腾底层配置文件，实现双星协同的最佳开发体验！
+
+---
+
 ## 📄 License
 
 本项目采用 [MIT License](LICENSE) 开源协议。
