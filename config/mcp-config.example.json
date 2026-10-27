@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "api-model-switcher-mcp": {
+      "command": "node",
+      "args": [
+        "path/to/antigravity-model-switcher/core/mcp-server.mjs"
+      ]
+    }
+  }
+}

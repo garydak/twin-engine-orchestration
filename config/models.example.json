@@ -1,0 +1,31 @@
+[
+  {
+    "id": "mdl_claude_37_sonnet",
+    "name": "Claude 3.7 Sonnet (Thinking)",
+    "modelId": "claude-3-7-sonnet-20250219",
+    "baseUrl": "https://api.your-relay.com/v1",
+    "protocol": "openai",
+    "maxTokens": 8192,
+    "temperature": 0.7,
+    "reasoningEffort": "high"
+  },
+  {
+    "id": "mdl_openai_o1",
+    "name": "OpenAI o1",
+    "modelId": "o1",
+    "baseUrl": "https://api.your-relay.com/v1",
+    "protocol": "openai",
+    "maxTokens": 16384,
+    "temperature": 1.0,
+    "reasoningEffort": "high"
+  },
+  {
+    "id": "mdl_deepseek_r1",
+    "name": "DeepSeek R1",
+    "modelId": "deepseek-reasoner",
+    "baseUrl": "https://api.deepseek.com",
+    "protocol": "openai",
+    "maxTokens": 8192,
+    "temperature": 0.6
+  }
+]

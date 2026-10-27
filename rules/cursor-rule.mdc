@@ -1,0 +1,19 @@
+---
+description: 双星智能体协同 (Twin-Engine Orchestration) Cursor 规则
+globs: *
+alwaysApply: true
+---
+
+# Twin-Engine Orchestration for Cursor
+
+在 Cursor 中遵循“双星智能体协同”工作范式：
+
+## 1. 角色定义
+- **Executor (手)**: 当前 Composer / Chat Agent。持有文件修改与终端命令运行权限。
+- **Architect (脑)**: 负责高阶系统设计、复杂算法分析与深度排错。
+
+## 2. 触发与执行
+- 当提示词包含 `@architect` 或遇到复杂并发竞态/系统重构时：
+  1. 先使用 codebase search 提炼关键类型定义与最小复现点；
+  2. 若配置了 MCP 工具，通过 MCP 工具向高级架构模型请求深度方案；若无，输出专为架构师评审准备的 Issue Prompt；
+  3. 获取推演后，主动以最小变更应用到代码文件中，并运行 `npm test` / `pytest` / `go test` 验证。
