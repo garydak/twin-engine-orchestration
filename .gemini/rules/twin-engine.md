@@ -7,7 +7,7 @@
   - **主体**：当前会话主智能体（官方 Gemini 3.8 Flash / 原生引擎）。
   - **职责**：持有全套原生系统工具（`read_file`、`write_file`、`edit_file`、`run_command` 等），负责自适应路由门控，提炼上下文，将架构蓝图转换为本地精准 Diff 补丁并跑测验证。
 - **架构总师与深度智囊 (Brain & Architect)**：
-  - **主体**：通过 `api-model-switcher-mcp` 调用的第三方中转顶级模型（如 Claude 3.7 Thinking / o1 / GPT-6）。
+  - **主体**：通过 `api-model-switcher-mcp` 调用的第三方中转顶级模型（如 Claude 5.5 Sonnet / Opus Thinking / GPT 6 Astra / DeepSeek R1）。
   - **职责**：负责顶层方案架构设计、复杂算法逻辑推演、疑难并发/竞态 Bug 根因剖析，遵循高密度蓝图协议输出核心决策（< 80行）。
 
 ## 2. 自适应路由门控触发机制 (Adaptive Gating)

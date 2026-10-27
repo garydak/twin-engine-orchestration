@@ -15,7 +15,7 @@
   3. 将架构脑返回的“高密度蓝图”在本地展开为精准 Diff 并跑测闭环。
 
 ### 1.2 架构总师与深度智囊 (Brain & Architect)
-- **主体**：通过中转 API / MCP 调用的第三方顶级推理模型（Claude 3.7 Sonnet Thinking / OpenAI o1 / DeepSeek R1 / GPT-6）。
+- **主体**：通过中转 API / MCP 调用的第三方顶级推理模型（Claude 5.5 Sonnet / Opus Thinking / GPT 6 Astra / DeepSeek R1 / o1）。
 - **特权与职责**：高难度架构设计、并发竞态诊断、复杂算法推演、安全审计与代码终审。
 - **核心任务**：严格遵守 **高密度蓝图协议 (Blueprint Protocol)**，只输出核心改动意图（< 80 行），不输出大段样板代码。
 

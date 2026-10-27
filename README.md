@@ -18,7 +18,7 @@
 ## 📌 核心痛点与 2.0 升级
 
 传统单模型或暴力调用多模型普遍存在三大痛点：
-1. **配额见底**：官方 Claude 3.7 / o1 订阅额度耗尽（0% 配额），导致深度推演工作彻底停摆；
+1. **配额见底**：官方 Claude 5.5 / GPT-6 订阅额度耗尽（0% 配额），导致深度推演工作彻底停摆；
 2. **杀鸡用牛刀**：改变量名、写单测等轻量任务也频繁触发高级模型，白白耗尽昂贵的中转 API 额度；
 3. **大模型吐字慢与代码吞噬**：强迫顶级模型打印几百行完整代码，不仅等待 30+ 秒，还常因 `// ... existing code ...` 截断覆盖旧代码。
 
@@ -39,7 +39,7 @@ flowchart TD
     Gating -->|"高复杂度 (评分 ≥ 6) 或 @architect<br>并发死锁 / 架构重构 / 算法突破"| ExtractContext["提炼核心问题与最小复现点"]
     
     subgraph BlueprintWorkflow["Aider 风格高密度蓝图闭环"]
-        ExtractContext --> Brain["🧠 架构脑 (Claude 3.7 / o1 / R1)<br>输出高密度架构蓝图 (&lt; 80行)"]
+        ExtractContext --> Brain["🧠 架构脑 (Claude 5.5 / GPT 6 Astra / R1)<br>输出高密度架构蓝图 (&lt; 80行)"]
         Brain --> Blueprint["[TARGET] 变更函数<br>[RATIONALE] 防死锁/竞态原理<br>[BLUEPRINT] 核心实现契约<br>[EDGE_CASES] 边界防范清单"]
         Blueprint --> HandsApply["🛠️ 执行手 (原生智能体)<br>读取本地文件，展开为精准 Diff"]
     end
@@ -108,7 +108,7 @@ twin-engine-orchestration/
 ### 2. 深度架构/疑难攻坚（显式指派架构脑）
 当你遇到已知的高难度设计时，加上 `@architect`：
 > *“@architect 请帮我重构这里的支付状态机，防范分布式并发扣款竞态，并在本地完成测试。”*  
-> *“@architect [o1] 请针对这道图算法的递归堆栈溢出问题，给出基于 BFS + 拓扑排序的优化蓝图。”*
+> *“@architect [claude-sonnet-5-5] 请针对这道图算法的递归堆栈溢出问题，给出基于 BFS + 拓扑排序的优化蓝图。”*
 
 * **系统行为**：强制唤醒架构脑，架构脑以极少 Token 快速返回 `< 80 行` 高密度蓝图，原生执行手自动将其展开为代码 Diff 并跑测。
 

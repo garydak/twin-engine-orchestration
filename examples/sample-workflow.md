@@ -16,7 +16,7 @@
 ---
 
 ### Step 3: 唤醒架构脑（中转高级模型推演）
-主智能体通过 `chat_with_custom_model` 工具向中转站高级模型（如 Claude 3.7 Sonnet 或 o1）发送结构化咨询请求：
+主智能体通过 `chat_with_custom_model` 工具向中转站高级模型（如 Claude 5.5 Sonnet 或 GPT 6 Astra）发送结构化咨询请求：
 ```
 【任务类型】：并发排错与重构
 【背景】：订单扣款存在并发时序差，无乐观锁或分布式锁保护。
