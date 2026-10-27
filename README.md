@@ -69,6 +69,12 @@ twin-engine-orchestration/
 ├── .gemini/
 │   └── rules/
 │       └── twin-engine.md            # Antigravity 工作区双星 2.0 规则
+├── docs/
+│   ├── setup-architect-brain.md      # 架构脑大模型单独设置全指南
+│   └── deployment-guide.md           # 全局配置 vs 项目级配置完整方案
+├── scripts/
+│   ├── install.ps1                   # Windows PowerShell 一键部署脚本
+│   └── install.sh                    # macOS / Linux Bash 一键部署脚本
 ├── rules/
 │   ├── twin-engine.md                # 跨平台双星 2.0 规范定义
 │   ├── routing-policy.md             # 自适应复杂度路由与门控策略 (详细打分矩阵)
@@ -89,6 +95,76 @@ twin-engine-orchestration/
 ├── LICENSE                           # MIT 开源许可证
 └── README.md                         # 项目主说明文档
 ```
+
+---
+
+## 🧠 如何设置架构脑大模型 (Architect Brain Setup)
+
+“架构脑”是双星协同中的顶层思考中枢（推荐选用 **Claude 5.5 Sonnet/Opus**、**GPT 6 Astra** 或 **DeepSeek R1**）。框架支持以下配置方式：
+
+### 1. 对话一句话极速配置（最推荐）
+直接在任意对话框中将中转站的 API 信息发送给智能体：
+> *“帮我配置一个架构脑模型：*  
+> *名称：`Claude 5.5 Sonnet`*  
+> *BaseURL：`https://api.your-relay.com/v1`*  
+> *API Key：`sk-xxxxxxxx`*  
+> *Model ID：`claude-sonnet-5-5`，并设为默认激活。”*
+
+智能体将自动调用 MCP 完成密钥安全存储、协议握手与连通性测速。
+
+### 2. 搭配图形面板可视化配置
+搭配配套生态项目 [**Antigravity API Manager**](https://github.com/garydak/antigravity-api-manager)，直接在编辑器侧边栏面板中填写 BaseURL 与 API Key，一键测试网络延迟（ms）并切换默认模型。
+
+### 3. 日常调用与随时切换
+* **全局默认激活**：日常高复杂度任务会自动交由当前默认架构脑推演；
+* **单次动态指定**：无需改配置，在提问时带模型 ID 即可，如 `@architect [claude-sonnet-5-5] 请重构状态机` 或 `@architect [gpt-6-astra] 请优化图算法`。
+
+📖 **详细参数定义与排错指南**：[docs/setup-architect-brain.md](docs/setup-architect-brain.md)
+
+---
+
+## 🌍 全局配置 vs 📁 项目级配置方案 (Deployment Modes)
+
+根据使用场景，框架支持**全局生效**与**具体单项目定制**两种部署模式：
+
+```mermaid
+flowchart LR
+    A["🌍 全局模式 (~/.gemini/rules/)<br>一次部署，电脑上所有项目自动生效"] -. 默认继承 .-> B["📁 项目级模式 (./.gemini/rules/)<br>针对特定工程深度定制模型与门控阈值"]
+    B --> C["🤖 执行手依据最高优先级规则运转"]
+```
+
+### 1. 全局配置（所有项目开箱即用）
+* **原理**：将规则部署到操作系统用户目录（`~/.gemini/rules/twin-engine.md`）；
+* **效果**：无论在电脑哪个目录下启动 Antigravity，智能体均自动遵循双星 2.0 规则、自适应门控与蓝图输出；
+* **一键安装**：
+  ```powershell
+  # Windows PowerShell
+  .\scripts\install.ps1 -Mode global
+  
+  # macOS / Linux Bash
+  ./scripts/install.sh global
+  ```
+
+### 2. 具体项目级配置（单工程隔离与定制）
+* **原理**：将规则放置在具体工程根目录下的 `.gemini/rules/twin-engine.md`；
+* **优势**：
+  * **可提交进 Git**：全团队成员拉取代码后自动共享同一套双星架构规范；
+  * **个性化定制**：可为该工程强制绑定特定的架构脑模型（如仅允许 `claude-opus-5-5`），或微调门控激活阈值（如金融核心调至 ≥ 4 分，轻微疑难即唤醒架构脑）；
+* **一键应用到当前项目**：
+  ```powershell
+  # Windows PowerShell (在你的工程根目录执行)
+  path\to\twin-engine-orchestration\scripts\install.ps1 -Mode project
+
+  # macOS / Linux Bash
+  path/to/twin-engine-orchestration/scripts/install.sh project
+  ```
+
+### 3. 优先级仲裁机制
+1. **P0 (最高)**：对话框单次指令 `@architect [model-id]` 覆盖一切；
+2. **P1 (次高)**：当前工程根目录 `.gemini/rules/` 项目级规则；
+3. **P2 (基础)**：全局用户目录 `~/.gemini/rules/` 全局环境规则。
+
+📖 **详细多 IDE 部署指南**：[docs/deployment-guide.md](docs/deployment-guide.md)
 
 ---
 
